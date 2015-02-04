@@ -1,0 +1,379 @@
+input.displayTableFirst {
+background-image: url('../Images/first.jpg');
+background-repeat: no-repeat;
+border: 0px;
+width: 27px;
+height: 24px;
+}
+input.displayTableNext {
+background-image: url(../Images/next.jpg);
+background-repeat: no-repeat;
+border: 0px;
+width: 27px;
+height: 24px;
+border: 10px;
+}
+input.displayTablePrevious {
+background-image: url(../Images/previous.jpg);
+background-repeat: no-repeat;
+border: 0px;
+width: 27px;
+height: 24px;
+border: 10px;
+}
+input.displayTableLast {
+background-image: url(../Images/last.jpg);
+background-repeat: no-repeat;
+border: 0px;
+width: 27px;
+height: 24px;
+border: 10px;
+}
+.displayPageButtonSimple {
+background: #AEAFAD;
+font-family: "Times New Roman", Times, serif;
+font-size: small;
+color: black;
+}
+.displayPageButton {
+background: #AEAFAD;
+font-family: "Times New Roman", Times, serif;
+font-size: small;
+width: 70px;
+color: black;
+}
+overlay {
+background-image: url(../Images/blackDot.png);
+position: absolute;
+top: 0px;
+left: 0px;
+width: 100%;
+height: 100%;
+}
+.displayTableFrame {
+background-color: white;
+height: 320px;
+width: 100%;
+}
+.dataTable {
+text-decoration: none;
+border: 1px solid #CCC;
+/
+width: 98%; /
+}
+.dataTable th {
+font-family: sans-serif;
+font-size: small;
+font-weight: bold;
+padding: 3px 3px 3px 3px !important;
+background-color: rgb(46, 54, 64);
+color: #FFFFF;
+}
+.dataTable td {
+padding: 3px 3px 3px 3px !important;
+}
+.dataTable thead tr {
+position: relative;
+height: 10px;
+}
+.dataTable th a:link,th a:visited {
+color: #FFFFFF;
+text-decoration: none;
+font-family: sans-serif;
+font-weight: normal;
+}
+.dataTable a:hover {
+color: #FFFFFF;
+text-decoration: none;
+font-family: sans-serif;
+font-weight: bold;
+}
+.dataTable thead th.sorted A {
+font-weight: bolder;
+}
+.dataTable tbody {
+width: 400px;
+height: 230px;
+overflow-x: hidden;
+overflow-y: auto;
+}
+.dataTable tbody tr {
+height: auto;
+white-space: nowrap;
+}
+.dataTable tbody tr.odd {
+background-color: #eee
+}
+.dataTable tbody tr.tableRowEven,tr.even {
+background-color: #ddd
+}
+.dataTable tbody tr td:last-child {
+padding-right: 20px;
+}
+.dataTable tbody td {
+padding: 2px 4px 2px 4px !important;
+font-family: sans-serif;
+font-size: small;
+}
+.exportlinks {
+font-family: sans-serif;
+}
+/ style sheet to display light blue color for a mouse on row over event /
+.dataTable tr.rowMouseOver {
+color: white;
+background-repeat: repeat-x;
+background-color: rgb(228, 59, 47); / #7CA4E0; /
+}
+.dataTable .order1 {
+background-position: right 50%;
+background-image: url('../Images/arrow_up.gif');
+background-repeat: no-repeat;
+font-weight: bold;
+}
+.dataTable .order2 {
+background-position: right 50%;
+background-image: url('../Images/arrow_down.gif');
+background-repeat: no-repeat;
+font-weight: bold;
+}
+.defaultDataTable {
+background-color: white;
+border: 1px solid #000066;
+font-size: xx-small;
+margin: 5px;
+font: bold normal normal xx-small "Arial Black";
+}
+.defaultDataTable th {
+border-right: 1px solid #c8c8ff;
+padding-left: 2px;
+padding-right: 12px;
+font-family: arial, helvetica, sans-serif;
+font-weight: bold;
+color: black;
+background-color: #AEAFAD;
+margin-right: 10px;
+white-space: nowrap;
+}
+.defaultDataTable td {
+font-family: verdana, arial, helvetica, sans-serif;
+padding-left: 2px;
+}
+.defaultDataTable tr.total td {
+white-space: nowrap;
+vertical-align: top;
+font-weight: bold;
+border-top: 1px solid black;
+padding-bottom: 10px;
+}
+.defaultDataTable tr.total td.customer {
+visibility: hidden;
+}
+.defaultDataTable td.hidden {
+display: none;
+}
+.defaultDataTable th.hidden {
+display: none;
+}
+.defaultDataTable th.r {
+text-align: right;
+padding-right: 10px;
+}
+.defaultDataTable th.c {
+text-align: center;
+}
+.defaultDataTable td.r {
+text-align: right;
+padding-right: 10px;
+}
+.defaultDataTable td.c {
+text-align: center;
+}
+.defaultDataTable tr.odd {
+background-color: #eee
+}
+.defaultDataTable tr.even {
+background-color: #ddd;
+}
+.defaultDataTable th a {
+text-align: left;
+color: black;
+}
+.defaultDataTable .order1 {
+background-position: right 50%;
+background-image: url('../Images/arrow_up.gif');
+background-repeat: no-repeat
+}
+.defaultDataTable .order2 {
+background-position: right 50%;
+background-image: url('../Images/arrow_down.gif');
+background-repeat: no-repeat
+}
+span.export {
+padding: 0 4px 1px 20px;
+font-size: x-small;
+text-align: center;
+}
+span.excel {
+background-image: url('../Images/ico_file_excel.png');
+background-repeat: no-repeat;
+width: 16px;
+}
+span.csv {
+background-image: url('../Images/ico_file_csv.png');
+background-repeat: no-repeat;
+width: 16px;
+}
+span.xml {
+background-image: url('../Images/ico_file_xml.png');
+background-repeat: no-repeat;
+width: 16px;
+}
+span.first {
+background-image: url('../Images/first.jpg');
+background-repeat: no-repeat;
+width: 16px;
+}
+span.last {
+background-image: url('../Images/last.jpg');
+background-repeat: no-repeat;
+width: 16px;
+}
+span.pdf {
+background-image: url('../Images/ico_file_pdf.png');
+background-repeat: no-repeat;
+width: 16px;
+}
+span.rtf {
+background-image: url('../Images/ico_file_rtf.png');
+background-repeat: no-repeat;
+width: 16px;
+}
+.pageHeader {
+height: 60px;
+background-image: url('../Images/header.gif');
+background-repeat: repeat-x
+}
+.pageHeaderText {
+font-size: 30px;
+margin-left: 5px;
+color: black;
+font-family: "century gothic", verdana, arial, helvetica, sans-serif;
+font-weight: bold;
+text-align: left;
+display: inline;
+white-space: nowrap;
+}
+.content {
+width: 50%;
+padding: 10px;
+}
+.rightColumn {
+width: 3px;
+}
+.customer {
+width: 10%;
+text-align: left;
+}
+.company {
+width: 10%;
+text-align: left;
+}
+.email {
+width: 14%;
+text-align: left;
+}
+.broker {
+width: 10%;
+text-align: right;
+}
+.company {
+width: 10%;
+text-align: left;
+}
+.fmv {
+width: 13%;
+text-align: left;
+}
+.country {
+width: 12%;
+text-align: left;
+}
+.tax {
+width: 14%;
+text-align: left;
+}
+.size9 {
+width: 9%;
+text-align: left;
+}
+.hideColumn {
+display: none;
+}
+.so {
+width: 10%;
+text-align: left;
+}
+.type {
+width: 10%;
+text-align: left;
+}
+.fmv {
+width: 20%;
+text-align: left;
+}
+.plan {
+width: 13%;
+text-align: left;
+}
+.eid {
+width: 15%;
+text-align: left;
+}
+.orderNumber {
+width: 10%;
+text-align: left;
+}
+.orderDate {
+text-align: left;
+width: 14%;
+}
+.productName {
+width: 25%;
+}
+.size35 {
+width: 35%;
+text-align: left;
+}
+.quantity {
+text-align: center;
+width: 10%;
+}
+.rightAlignedPadded {
+text-align: right;
+padding-right: 10px;
+}
+.logo {
+border-top: 1px solid #000066;
+border-left: 1px solid #000066;
+border-bottom: 1px solid #000066;
+display: inline;
+text-align: right;
+}
+.code {
+font-family: verdana, arial, helvetica, "courier new", monospace;
+font-size: xx-small;
+}
+.borderedInline {
+display: inline;
+border: 1px solid black;
+}
+img {
+border: 0px;
+}
+.pagelinks {
+color: #999999;
+margin: 5px;
+}
+.pagelinks img {
+vertical-align: middle;
+}

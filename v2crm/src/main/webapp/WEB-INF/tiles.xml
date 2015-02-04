@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+  
+<!DOCTYPE tiles-definitions PUBLIC  
+   "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"  
+   "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	
+	<definition name="baseLayout" template="/baseLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/header.jsp" />
+		<put-attribute name="leftMenuBar" value="/leftMenuBar.jsp" />
+		<put-attribute name="body" value="" />
+	</definition>
+	
+	<definition name="index" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/index.jsp" />
+	</definition>
+	
+	<definition name="leads" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/leads.jsp" />
+	</definition>
+	
+	<definition name="leadForm" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/leadForm.jsp" />
+	</definition>
+	
+	<definition name="organizations" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/organizations.jsp" />
+	</definition>
+	
+	<definition name="organizationForm" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/organizationForm.jsp" />
+	</definition>
+	
+	<definition name="contacts" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/contacts.jsp" />
+	</definition>
+	
+	<definition name="contactForm" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/contactForm.jsp" />
+	</definition>
+	
+	<definition name="campaigns" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/campaigns.jsp" />
+	</definition>
+	
+	<definition name="campaignForm" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/campaignForm.jsp" />
+	</definition>
+	
+	<definition name="oppurtunities" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/oppurtunities.jsp" />
+	</definition>
+	
+	<definition name="oppurtunityForm" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/oppurtunityForm.jsp" />
+	</definition>
+	
+	<!--  -->
+	<definition name="users" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/user.jsp" />
+	</definition>
+	
+	<definition name="userForm" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/userForm.jsp" />
+	</definition>
+	
+	<!--  -->
+	<definition name="userType" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/userType.jsp" />
+	</definition>
+	
+	<definition name="userTypeForm" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/userTypeForm.jsp" />
+	</definition>
+	
+	
+</tiles-definitions>

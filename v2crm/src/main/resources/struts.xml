@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.objectFactory"
+		value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	<constant name="struts.objectFactory.spring.autoWire" value="type" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.ui.theme" value="simple" />
+
+	<package name="default" namespace="/" extends="struts-default">
+
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+		<action name="Login" class="loginAction" method="login">
+			<result name="success" type="tiles">index</result>
+		</action>
+		
+		<action name="DisplayDashboard" class="loginAction" method="displayDashboard">
+			<result name="success" type="tiles">index</result>
+		</action>
+		
+		<action name="DisplayLeads" class="leadAction" method="displayLeads">
+			<result name="success" type="tiles">leads</result>
+		</action>
+		<action name="EditLead" class="leadAction" method="editLead">
+			<result name="edit_success" type="tiles">leadForm</result>
+		</action>
+		<action name="DeleteLead" class="leadAction" method="deleteLead">
+			<result name="delete_success" type="tiles">leads</result>
+		</action>
+		<action name="SaveLead" class="leadAction" method="save">
+			<result name="save_success" type="redirect">DisplayLeads</result>
+			<result name="save_failure" type="tiles">leadForm</result>
+		</action>
+
+		<action name="DisplayOrganizations" class="organizationAction"
+			method="display">
+			<result name="success" type="tiles">organizations</result>
+
+		</action>
+
+		<action name="EditOrganization" class="organizationAction"
+			method="edit">
+			<result name="edit_success" type="tiles">organizationForm</result>
+
+		</action>
+
+		<action name="DeleteOrganization" class="organizationAction"
+			method="delete">
+			<result name="delete_success" type="tiles">organizations</result>
+
+		</action>
+
+		<action name="SaveOrganization" class="organizationAction"
+			method="save">
+			<result name="save_success" type="redirect">DisplayOrganizations</result>
+			<result name="save_failure" type="tiles">organizationForm</result>
+
+		</action>
+
+		<!-- Actions classes for Contact Entity -->
+		<action name="DisplayContacts" class="contactAction" method="display">
+			<result name="success" type="tiles">contacts</result>
+
+		</action>
+
+		<action name="EditContact" class="contactAction" method="edit">
+			<result name="edit_success" type="tiles">contactForm</result>
+
+		</action>
+
+		<action name="DeleteContact" class="contactAction" method="delete">
+			<result name="delete_success" type="tiles">contacts</result>
+
+		</action>
+
+		<action name="SaveContact" class="contactAction" method="save">
+			<result name="save_success" type="redirect">DisplayContacts</result>
+			<result name="save_failure" type="tiles">contactForm</result>
+
+		</action>
+
+		<!-- Actions classes for Campaign Entity -->
+		<action name="DisplayCampaigns" class="campaignAction" method="display">
+			<result name="success" type="tiles">campaigns</result>
+
+		</action>
+
+		<action name="EditCampaign" class="campaignAction" method="edit">
+			<result name="edit_success" type="tiles">campaignForm</result>
+
+		</action>
+
+		<action name="DeleteCampaign" class="campaignAction" method="delete">
+			<result name="delete_success" type="tiles">campaigns</result>
+
+		</action>
+
+		<action name="SaveCampaign" class="campaignAction" method="save">
+			<result name="save_success" type="redirect">DisplayCampaigns</result>
+			<result name="save_failure" type="tiles">campaignForm</result>
+
+		</action>
+
+
+		<!-- Actions classes for Oppurtunity Entity -->
+		<action name="DisplayOppurtunities" class="oppurtunityAction"
+			method="display">
+			<result name="success" type="tiles">oppurtunities</result>
+
+		</action>
+
+		<action name="EditOppurtunity" class="oppurtunityAction"
+			method="edit">
+			<result name="edit_success" type="tiles">oppurtunityForm</result>
+		</action>
+
+		<action name="DeleteOppurtunity" class="oppurtunityAction"
+			method="delete">
+			<result name="delete_success" type="tiles">oppurtunities</result>
+
+		</action>
+
+		<action name="SaveOppurtunity" class="oppurtunityAction" method="save">
+			<result name="save_success" type="redirect">DisplayOppurtunities</result>
+			<result name="save_failure" type="tiles">oppurtunityForm</result>
+
+		</action>
+
+		<!-- Actions classes for User Entity -->
+		<action name="DisplayUser" class="userAction" method="display">
+			<result name="success" type="tiles">users</result>
+
+		</action>
+
+		<action name="EditUser" class="userAction" method="edit">
+			<result name="edit_success" type="tiles">userForm</result>
+		</action>
+
+		<action name="DeleteUser" class="userAction" method="delete">
+			<result name="delete_success" type="tiles">users</result>
+
+		</action>
+
+		<action name="SaveUser" class="userAction" method="save">
+			<result name="save_success" type="redirect">DisplayUser</result>
+			<result name="save_failure" type="tiles">userForm</result>
+
+		</action>
+
+
+		<!-- Actions classes for User Type -->
+		<action name="DisplayUserType" class="userTypeAction" method="display">
+			<result name="success" type="tiles">userType</result>
+
+		</action>
+
+		<action name="EditUserType" class="userTypeAction" method="edit">
+			<result name="edit_success" type="tiles">userTypeForm</result>
+		</action>
+
+		<action name="DeleteUserType" class="userTypeAction" method="delete">
+			<result name="delete_success" type="tiles">userType</result>
+
+		</action>
+
+		<action name="SaveUserType" class="userTypeAction" method="save">
+			<result name="save_success" type="redirect">DisplayUserType</result>
+			<result name="save_failure" type="tiles">userTypeForm</result>
+
+		</action>
+
+
+	</package>
+
+</struts>

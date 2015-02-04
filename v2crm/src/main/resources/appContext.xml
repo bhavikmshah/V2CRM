@@ -1,0 +1,125 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:component-scan base-package="com.v2crm" />
+
+	<tx:annotation-driven transaction-manager="transactionManagerNonJTA" />
+
+
+
+	<bean id="dataSourceC3P0" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/v2crm" />
+		<property name="user" value="root" />
+		<property name="password" value="tiger" />
+
+		<property name="initialPoolSize" value="3" />
+		<property name="minPoolSize" value="6" />
+		<property name="maxPoolSize" value="25" />
+		<property name="acquireIncrement" value="3" />
+		<property name="maxStatements" value="0" />
+		<!-- retries -->
+		<property name="acquireRetryAttempts" value="30" />
+		<property name="acquireRetryDelay" value="1000" /> <!-- 1s -->
+		<property name="breakAfterAcquireFailure" value="false" />
+		<!-- refreshing connections -->
+		<property name="maxIdleTime" value="180" /> <!-- 3min -->
+		<property name="maxConnectionAge" value="10" /> <!-- 1h -->
+		<!-- timeouts and testing -->
+		<property name="checkoutTimeout" value="5000" /> <!-- 5s -->
+		<property name="idleConnectionTestPeriod" value="60" /> <!-- 60 -->
+		<property name="testConnectionOnCheckout" value="true" />
+		<property name="preferredTestQuery" value="SELECT 1" />
+		<property name="testConnectionOnCheckin" value="true" />
+	</bean>
+
+	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/v2crm" />
+		<property name="username" value="root" />
+		<property name="password" value="tiger" />
+		<property name="idleConnectionTestPeriod" value="60" />
+		<property name="idleMaxAge" value="240" />
+		<property name="maxConnectionsPerPartition" value="3" />
+		<property name="minConnectionsPerPartition" value="1" />
+		<property name="partitionCount" value="1" />
+		<property name="acquireIncrement" value="5" />
+		<property name="statementsCacheSize" value="100" />
+		<property name="releaseHelperThreads" value="3" />
+	</bean>
+
+	<bean id="entityManagerFactoryNonJTA"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<!--TODO: suppose to work without classpath -->
+		<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
+		<property name="persistenceUnitName" value="V2CRM_PersistenceUnit" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<!-- <property name="databasePlatform" value="org.hibernate.dialect.DerbyDialect" 
+					/> -->
+				<!-- <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" 
+					/> -->
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+				<!-- <property name="databasePlatform" value="org.hibernate.dialect.OracleDialect" 
+					/> -->
+				<property name="showSql" value="true" />
+				<property name="generateDdl" value="true" />
+
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="transactionManagerNonJTA" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactoryNonJTA" />
+		<property name="defaultTimeout" value="1800"></property>
+	</bean>
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean name="loginAction" class="com.v2crm.web.actions.LoginAction"
+		scope="prototype" />
+
+	<bean name="leadAction" class="com.v2crm.web.actions.LeadAction"
+		scope="prototype" />
+	<bean name="editLeadAction" class="com.v2crm.web.actions.EditLeadAction"
+		scope="prototype" />
+	<bean name="saveLeadAction" class="com.v2crm.web.actions.SaveLeadAction"
+		scope="prototype" />
+	<bean name="organizationAction" class="com.v2crm.web.actions.OrganizationAction"
+		scope="prototype" />
+	<bean name="contactAction" class="com.v2crm.web.actions.ContactAction"
+		scope="prototype" />
+	<bean name="campaignAction" class="com.v2crm.web.actions.CampaignAction"
+		scope="prototype" />
+	<bean name="oppurtunityAction" class="com.v2crm.web.actions.OppurtunityAction"
+		scope="prototype" />
+
+	<bean name="userAction" class="com.v2crm.web.actions.UserAction"
+		scope="prototype" />
+
+	<bean name="userTypeAction" class="com.v2crm.web.actions.UserTypeAction"
+		scope="prototype" />
+
+
+
+</beans>
+ 

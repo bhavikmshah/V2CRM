@@ -1,0 +1,142 @@
+div#tbl-container {
+width: 400px;
+/ default value will be overrided by minimum of table width or screen resolution/
+height: 300px;
+overflow: auto;
+/
+scrollbar-base-color: #ffeaff;
+
+/
+}
+.dataTable { /table-layout: fixed; /
+border-collapse: collapse;
+/ background-color: WhiteSmoke; /
+}
+.dataTable th {
+top: expression(document . getElementById("tbl-container") . scrollTop-2
+); / IE5+ only /
+z-index: 20;
+font-size: small;
+padding: 3px 3px 3px 3px !important;
+text-align: center;
+position: relative;
+cursor: default;
+font-family: sans-serif;
+font-size: small;
+font-weight: bold;
+background-color: rgb(46, 54, 64);
+color: #FFFFF;
+}
+.dataTable thead tr {
+position: relative;
+height: 10px;
+background-color: #7CA4E0;
+}
+.dataTable th a:link,th a:visited {
+color: #FFFFFF;
+text-decoration: none;
+font-family: sans-serif;
+font-weight: normal;
+}
+.dataTable a:hover {
+color: #FFFFFF;
+text-decoration: none;
+font-family: sans-serif;
+font-weight: bold;
+}
+.dataTable thead th.sorted A {
+font-weight: bolder;
+}
+.dataTable td {
+padding: 3px 3px 3px 3px !important;
+}
+.dataTable tbody tr {
+height: auto;
+white-space: nowrap;
+}
+.dataTable tbody tr.odd {
+background-color: #eee;
+font-size: x-small;
+}
+.dataTable tbody tr.tableRowEven,tr.even {
+background-color: #ddd
+font-size: x-small;
+}
+.dataTable tbody tr td:last-child { / padding-right: 20px; /
+}
+/these styles have nothing to do with the locked column/
+.dataTable body {
+background-color: white;
+color: black;
+font-family: sans-serif;
+}
+.dataTable tbody td {
+padding: 2px 4px 2px 4px !important;
+font-family: sans-serif;
+font-size: x-small;
+}
+.exportlinks {
+font-family: sans-serif;
+}
+/ style sheet to display light blue color for a mouse on row over event /
+.dataTable tr.rowMouseOver {
+color: white;
+background-repeat: repeat-x;
+background-color: rgb(228, 59, 47); /#8888FF;/
+}
+.dataTable .order1 {
+background-position: right 50%;
+background-image: url('../Images/arrow_up.gif');
+background-repeat: no-repeat;
+font-weight: bold;
+}
+.dataTable .order2 {
+background-position: right 50%;
+background-image: url('../Images/arrow_down.gif');
+background-repeat: no-repeat;
+font-weight: bold;
+}
+span.export {
+padding: 0 4px 1px 20px;
+font-size: x-small;
+text-align: center;
+}
+span.excel {
+background-image: url('../Images/ico_file_excel.png');
+background-repeat: no-repeat;
+width: 16px;
+}
+span.csv {
+background-image: url('../Images/ico_file_csv.png');
+background-repeat: no-repeat;
+width: 16px;
+}
+span.xml {
+background-image: url('../Images/ico_file_xml.png');
+background-repeat: no-repeat;
+width: 16px;
+}
+span.first {
+background-image: url('../Images/first.jpg');
+background-repeat: no-repeat;
+width: 16px;
+}
+span.last {
+background-image: url('../Images/last.jpg');
+background-repeat: no-repeat;
+width: 16px;
+}
+span.pdf {
+background-image: url('../Images/ico_file_pdf.png');
+background-repeat: no-repeat;
+width: 16px;
+}
+span.rtf {
+background-image: url('../Images/ico_file_rtf.png');
+background-repeat: no-repeat;
+width: 16px;
+}
+.rightAlignedPadded {
+text-align: right;
+padding-right: 10px;
+}
