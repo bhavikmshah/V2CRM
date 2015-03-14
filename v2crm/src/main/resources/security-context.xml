@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd 
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- Configuring RoleVoter bean to use custom access roles, by default roles 
+		should be in the form ROLE_{XXX} -->
+	<beans:bean id="roleVoter"
+		class="org.springframework.security.access.vote.RoleVoter">
+		<beans:property name="rolePrefix" value=""></beans:property>
+	</beans:bean>
+
+	<beans:bean id="accessDecisionManager"
+		class="org.springframework.security.access.vote.AffirmativeBased">
+		<beans:constructor-arg name="decisionVoters"
+			ref="roleVoter" />
+	</beans:bean>
+
+
+	<http auto-config="true"  access-decision-manager-ref="accessDecisionManager">
+	 <form-login 
+		    login-page="/login" 
+		    default-target-url="/index" 
+			authentication-failure-url="/login?error" 
+			username-parameter="username"
+			password-parameter="password" />
+		<!-- <intercept-url pattern="/**" access="ADMIN" /> -->
+		<intercept-url pattern="/LoginPage" access="DASH_R" />		
+		<intercept-url pattern="/DisplayDashboard" access="DASH_R" />
+		<intercept-url pattern="/DisplayLeads" access="LEAD_R" />
+		<intercept-url pattern="/EditLead" access="LEAD_M" />
+		<intercept-url pattern="/DeleteLead" access="LEAD_D" />
+		<intercept-url pattern="/SaveLead" access="LEAD_M" />
+		<intercept-url pattern="/DisplayOrganizations" access="ORG_R" />
+		<intercept-url pattern="/EditOrganization" access="ORG_M" />
+		<intercept-url pattern="/DeleteOrganization" access="ORG_D" />
+		<intercept-url pattern="/SaveOrganization" access="ORG_M" />
+		<intercept-url pattern="/DisplayContacts" access="CONT_RR" />
+		<intercept-url pattern="/EditContact" access="CONT_M" />
+		<intercept-url pattern="/DeleteContact" access="CONT_D" />
+		<intercept-url pattern="/SaveContact" access="CONT_M" />
+		<intercept-url pattern="/DisplayCampaigns" access="CPGN_R" />
+		<intercept-url pattern="/EditCampaign" access="CPGN_M" />
+		<intercept-url pattern="/DeleteCampaign" access="CPGN_D" />
+		<intercept-url pattern="/SaveCampaign" access="CPGN_M" />
+		<intercept-url pattern="/DisplayOppurtunities" access="OPPT_R" />
+		<intercept-url pattern="/EditOppurtunity" access="OPPT_M" />
+		<intercept-url pattern="/DeleteOppurtunity" access="OPPT_D" />
+		<intercept-url pattern="/SaveOppurtunity" access="OPPT_M" />
+		
+		<intercept-url pattern="/DisplayUser" access="USR_R" />
+		<intercept-url pattern="/EditUser" access="USR_M" />
+		<intercept-url pattern="/DeleteUser" access="USR_DS" />
+		
+		<intercept-url pattern="/DisplayUserType" access="USRTYP_R" />
+		<intercept-url pattern="/EditUserType" access="USRTYP_M" />
+		<intercept-url pattern="/DeleteUserType" access="USRTYP_DS" />
+		
+		<!-- <session-management session-fixation-protection="none" /> -->
+	</http>
+	<!-- <authentication-manager> <authentication-provider> <user-service> <user 
+		name="mkyong" password="123456" authorities="USER" /> <user name="admin" 
+		password="123456" authorities="ADMIN" /> <user name="dba" password="123456" 
+		authorities="DBA" /> </user-service> </authentication-provider> </authentication-manager> -->
+
+	<beans:bean id="customAuthenticationProvider"
+		class="com.v2crm.security.CustomAuthenticationProvider" />
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="customAuthenticationProvider" />
+	</authentication-manager>
+
+</beans:beans>
