@@ -1,11 +1,12 @@
-<%@ page import="com.v2crm.domain.*" %>
+<%@ page import="com.v2crm.domain.*,org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags" %>
 <%@ taglib prefix="sb" uri="/struts-bootstrap-tags" %>
 
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <% User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+    System.out.println(" User us "+ user); System.out.println(" module list "+ user.getUsersModuleAccessLst().size()); request.setAttribute("LoggedInUser",user);  %>
  <!-- Left side column. contains the logo and sidebar -->
             <aside class="left-side sidebar-offcanvas">
                 <!-- sidebar: style can be found in sidebar.less -->
@@ -30,11 +31,13 @@
                             </span>
                         </div>
                     </form>
+                   
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                                                        
-                   <s:iterator value="#session.LoggedInUser.usersModuleAccessLst" status="rowStatus"> 
+                   <s:iterator value="#request.LoggedInUser.usersModuleAccessLst" status="rowStatus"> 
+                   <%-- <s:iterator value="#user.usersModuleAccessLst" status="rowStatus"> --%>
                     
                     
                      <li class="active">
@@ -120,7 +123,7 @@
                             </ul>
                         </li> -->
                         
-                        <li>
+                       <%--  <li>
                             <a href="DisplayUser">
                                 <i class="fa fa-th"></i> <span>Users</span> <small class="badge pull-right bg-green">new</small>
                             </a>
@@ -129,7 +132,7 @@
                             <a href="DisplayUserType">
                                 <i class="fa fa-th"></i> <span>User Type</span> <small class="badge pull-right bg-green">new</small>
                             </a>
-                        </li> 
+                        </li>  --%>
                         
                     </ul>
                 </section>

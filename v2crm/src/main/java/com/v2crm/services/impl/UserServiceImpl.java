@@ -8,10 +8,14 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpSession;
 
 import junit.framework.Assert;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,15 +23,21 @@ import org.springframework.transaction.annotation.Transactional;
 import com.v2crm.dao.JPADAO;
 import com.v2crm.dao.UserDAO;
 import com.v2crm.domain.Feature;
+import com.v2crm.domain.Module;
+import com.v2crm.domain.ModulePermission;
 import com.v2crm.domain.User;
 import com.v2crm.domain.UserType;
 import com.v2crm.exceptions.CRMException;
 import com.v2crm.services.FeatureService;
+import com.v2crm.services.ModuleService;
 import com.v2crm.services.UserService;
 import com.v2crm.services.UserTypeService;
 @Service("userService")
 @Transactional(propagation= Propagation.REQUIRED, rollbackFor=CRMException.class)
 public class UserServiceImpl extends CRMServiceImpl<Long, User> implements UserService{
+	
+	private static String[] modules={"DASH","LEAD","CONT","OPPT","ORG","CPGN","DOCS","CLDR","RPTS","MAIL"};
+	private static String[] modulesAdmin={"DASH","LEAD","CONT","OPPT","ORG","CPGN","DOCS","CLDR","RPTS","MAIL","USR","USRTYP"};
 	@Autowired
     protected UserDAO userDAO;
 	
@@ -36,6 +46,9 @@ public class UserServiceImpl extends CRMServiceImpl<Long, User> implements UserS
 	
 	@Autowired
 	private FeatureService featureService;
+	
+	@Autowired
+	private ModuleService moduleService;
 
 	@PostConstruct
     public void init() throws Exception {
@@ -57,7 +70,6 @@ public class UserServiceImpl extends CRMServiceImpl<Long, User> implements UserS
     	setUpUsers();
     	assignFeaturesToAdmin();
     	assignFeaturesToSalesRep();
-    	
     	
     }
     
@@ -99,10 +111,10 @@ public class UserServiceImpl extends CRMServiceImpl<Long, User> implements UserS
 		if(types != null && types.size() > 0){
 			UserType userType = (UserType) types.get(0);
 			User user = new User();
-			user.setFirstName("Vraj");
+			user.setFirstName("Jatin");
 			user.setLastName("Sutaria");
-			user.setUserName("vraj");
-			user.setPassword("vraj");
+			user.setUserName("admin");
+			user.setPassword("admin123");
 			user.setUserType(userType);
 			user = (User) super.saveOrUpdate(user);
 			Assert.assertEquals(true, true);
@@ -118,8 +130,8 @@ public class UserServiceImpl extends CRMServiceImpl<Long, User> implements UserS
 		if(types != null && types.size() > 0){
 			UserType userType = (UserType) types.get(0);
 			User user = new User();
-			user.setFirstName("Jatin");
-			user.setLastName("Sutaria");
+			user.setFirstName("Bhavik");
+			user.setLastName("Shah");
 			user.setUserName("jatin");
 			user.setPassword("jatin");
 			user.setUserType(userType);
@@ -170,94 +182,124 @@ public class UserServiceImpl extends CRMServiceImpl<Long, User> implements UserS
     }
     
     void assignFeaturesToSalesRep(){
+    	
     	String userTypeQry = "UserType.findByType";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userType", "SalesRep");
 		List<UserType> types = userTypeService.findByNamedQueryAndNamedParams(userTypeQry, params);
 		if(types != null && types.size() > 0){
 			UserType userType = (UserType) types.get(0);
-			Feature feature = new Feature();
-			feature.setFeatureName("Leads");
-			//feature.setFeaturePage("contacts.jsp");
-			List<UserType> userTypes = new ArrayList<UserType>();
-			userTypes.add(userType);
-			feature.setUserTypes(userTypes);
-			featureService.save(feature);
 			
-			feature = new Feature();
-			feature.setFeatureName("Contacts");
-			//feature.setFeaturePage("contacts.jsp");
-			userTypes = new ArrayList<UserType>();
-			userTypes.add(userType);
-			feature.setUserTypes(userTypes);
-			featureService.save(feature);
+			List<ModulePermission> mpList = new ArrayList<ModulePermission>();
+			for(String module:modules){
+				ModulePermission perm = new ModulePermission();
+				perm.setUserType(userType);
+				perm.setModuleCode(module);
+				perm.setReadModule(true);
+				perm.setWriteModule(true);
+				perm.setDeleteModule(true);
+				mpList.add(perm);
+			}
+			userType.setModulePermission(mpList);
 			
-			feature = new Feature();
-			feature.setFeatureName("Organizations");
-			//feature.setFeaturePage("contacts.jsp");
-			userTypes = new ArrayList<UserType>();
-			userTypes.add(userType);
-			feature.setUserTypes(userTypes);
-			featureService.save(feature);
+			userTypeService.saveOrUpdate(userType);
 			
-			feature = new Feature();
-			feature.setFeatureName("Campaigns");
-			//feature.setFeaturePage("contacts.jsp");
-			userTypes = new ArrayList<UserType>();
-			userTypes.add(userType);
-			feature.setUserTypes(userTypes);
-			featureService.save(feature);
-			
-			feature = new Feature();
-			feature.setFeatureName("Oppurtunities");
-			//feature.setFeaturePage("contacts.jsp");
-			userTypes = new ArrayList<UserType>();
-			userTypes.add(userType);
-			feature.setUserTypes(userTypes);
-			featureService.save(feature);
-			Assert.assertEquals(true, true);
 		}
-		else{
-			Assert.assertEquals(true, false);
-		}
+			
     }
     
-    void assignFeaturesToAdmin(){
+ void assignFeaturesToAdmin(){
+    	
     	String userTypeQry = "UserType.findByType";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userType", "Admin");
 		List<UserType> types = userTypeService.findByNamedQueryAndNamedParams(userTypeQry, params);
 		if(types != null && types.size() > 0){
 			UserType userType = (UserType) types.get(0);
-			Feature feature = new Feature();
-			feature.setFeatureName("Users");
-			//feature.setFeaturePage("contacts.jsp");
-			List<UserType> userTypes = new ArrayList<UserType>();
-			userTypes.add(userType);
-			feature.setUserTypes(userTypes);
-			featureService.save(feature);
 			
-			feature = new Feature();
-			feature.setFeatureName("UserTypes");
-			//feature.setFeaturePage("contacts.jsp");
-			userTypes = new ArrayList<UserType>();
-			userTypes.add(userType);
-			feature.setUserTypes(userTypes);
-			featureService.save(feature);
+			List<ModulePermission> mpList = new ArrayList<ModulePermission>();
+			for(String module:modulesAdmin){
+				ModulePermission perm = new ModulePermission();
+				perm.setUserType(userType);
+				perm.setModuleCode(module);
+				perm.setReadModule(true);
+				perm.setWriteModule(true);
+				perm.setDeleteModule(true);
+				mpList.add(perm);
+			}
+			userType.setModulePermission(mpList);
 			
-			feature = new Feature();
-			feature.setFeatureName("Features");
-			//feature.setFeaturePage("contacts.jsp");
-			userTypes = new ArrayList<UserType>();
-			userTypes.add(userType);
-			feature.setUserTypes(userTypes);
-			featureService.save(feature);
+			userTypeService.saveOrUpdate(userType);
 			
-			Assert.assertEquals(true, true);
 		}
-		else{
-			Assert.assertEquals(true, false);
-		}
+			
     }
+    
+   
+    
+	@Override
+	public UserDetails loadUserByUsername(String userName)
+			throws UsernameNotFoundException {
+		
+		Map<String,String> paramMap = new HashMap<String,String>();
+		paramMap.put("userName", userName);
+		
+		List<User> userLst= userDAO.findByNamedQueryAndNamedParams("User.findUserByName", paramMap);
+		
+		if(null!=userLst && userLst.size()>0 ){
+			
+		User user =userLst.get(0);
+		setUserModlePermission(user);
+		return user;
+			
+		}
+		
+		return null;
+	}
+    
+    
+public void setUserModlePermission(User user) {
+		
+		List<Module> moduleLst = moduleService.findAll();
+
+		
+		if(null!=user){
+		UserType userType = user.getUserType();
+
+		List<ModulePermission> permissionLst = userType.getModulePermission();
+
+		List<ModulePermission> userAccesLst = new ArrayList<ModulePermission>();
+		
+		Map<String,ModulePermission> userTypeMpMap = new HashMap<String,ModulePermission>();
+		
+		for(ModulePermission mp: permissionLst){
+			userTypeMpMap.put(mp.getModuleCode(), mp);
+		}
+		
+		for(Module module : moduleLst){
+						
+				if(userTypeMpMap.containsKey(module.getModuleCode())){
+					ModulePermission	mPermission =  userTypeMpMap.get(module.getModuleCode());
+					if (mPermission.getReadModule() == false
+							&& false == mPermission.getWriteModule()
+							&& false == mPermission.getDeleteModule()) 
+						continue;
+				else{	
+					ModulePermission modPerm=userTypeMpMap.get(module.getModuleCode());
+					modPerm.setModuleName(module.getModuleName());
+					modPerm.setCssClass(module.getCssClass());
+					modPerm.setLink(module.getLink());
+					//modPerm.setUserType(userType);
+					userAccesLst.add(modPerm);
+					}
+				}
+			}
+
+		user.setUsersModuleAccessLst(userAccesLst);
+
+		}
+		
+	}
+    
 }
 

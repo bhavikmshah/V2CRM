@@ -1,21 +1,12 @@
 package com.v2crm.web.actions;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.v2crm.domain.Module;
-import com.v2crm.domain.ModulePermission;
-import com.v2crm.domain.User;
-import com.v2crm.domain.UserType;
 import com.v2crm.services.ModuleService;
 import com.v2crm.services.UserService;
 
@@ -29,6 +20,7 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
 	@Autowired
 	private ModuleService moduleService;
 	
+		
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.httpServletRequest = request;
@@ -36,7 +28,7 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
 
 	public String login() {
 		
-		List<Module> moduleLst = moduleService.findAll();
+		/*List<Module> moduleLst = moduleService.findAll();
 
 		User user = (User) userService.find(1);
 
@@ -77,8 +69,17 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
 
 		HttpSession session = httpServletRequest.getSession();
 		session.setAttribute("LoggedInUser", user);
-		}
+		}*/
+		
+		Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println(user);
+		
 		return "success";
+	}
+	
+	public String setUpdata(){
+		userService.setupData();
+		return null;
 	}
 
 	public String displayDashboard() {

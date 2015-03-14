@@ -6,6 +6,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.security.core.GrantedAuthority;
+
 @Entity
 @Table(name="module_permission")
 public class ModulePermission extends Base{
@@ -95,4 +97,7 @@ public class ModulePermission extends Base{
 		this.moduleName = moduleName;
 	}
 
+	
+
+	
 }
